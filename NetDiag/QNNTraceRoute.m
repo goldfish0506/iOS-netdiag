@@ -133,7 +133,7 @@ static const int TraceMaxAttempts = 3;
 
         struct timeval tv;
         fd_set readfds;
-        tv.tv_sec = 3;
+        tv.tv_sec = 1;
         tv.tv_usec = 0;
         FD_ZERO(&readfds);
         FD_SET(icmpSock, &readfds);
@@ -176,7 +176,7 @@ static const int TraceMaxAttempts = 3;
         hostaddr = "\0";
     }
     addr.sin_addr.s_addr = inet_addr(hostaddr);
-    [self.output write:[NSString stringWithFormat:@"traceroute to %@ ...\n", _host]];
+    [self.output write:[NSString stringWithFormat:@"\ntraceroute to %@ ...\n", _host]];
     if (addr.sin_addr.s_addr == INADDR_NONE) {
         struct hostent* host = gethostbyname(hostaddr);
         if (host == NULL || host->h_addr == NULL) {

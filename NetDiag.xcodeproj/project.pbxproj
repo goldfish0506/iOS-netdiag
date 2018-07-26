@@ -205,8 +205,6 @@
 				DF8DFFCB1C61DA1B00174DA9 /* Sources */,
 				DF8DFFCC1C61DA1B00174DA9 /* Frameworks */,
 				DF8DFFCD1C61DA1B00174DA9 /* Resources */,
-				6360AC3809EC45C17B6B9A39 /* [CP] Embed Pods Frameworks */,
-				7EB1F7F29D34632701B40C83 /* [CP] Copy Pods Resources */,
 				D1E68BCE0991EB5A44C81ED8 /* Embed Pods Frameworks */,
 				3317CC6757C386790A56DF6E /* Copy Pods Resources */,
 			);
@@ -310,36 +308,6 @@
 			inputPaths = (
 			);
 			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetDiagTests/Pods-NetDiagTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6360AC3809EC45C17B6B9A39 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NetDiagTests/Pods-NetDiagTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7EB1F7F29D34632701B40C83 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

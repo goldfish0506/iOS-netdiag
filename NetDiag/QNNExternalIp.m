@@ -67,23 +67,6 @@
     return s;
 }
 
-// this service provided by fastweb
-//<pre>
-//<table border="0" cellpadding="0" cellspacing="0" class="dns">
-//<tr>
-//<th>您的IP：</th>
-//<td width="128" >60.168.142.119</td>
-//<td>电信_安徽省_合肥市</td>
-//</tr>
-//<tr>
-//<th>您的DNS：</th>
-//<td width="128" >61.132.161.9</td>
-//<td>电信_安徽省_阜阳市</td>
-//</tr>
-//</table>
-//</pre>
-//<p class="result">您的DNS配置正确！ </p>
-
 + (NSString *)checkExternal {
     NSString *url = [QNNExternalIp getDiagUrl];
     if (url == nil) {

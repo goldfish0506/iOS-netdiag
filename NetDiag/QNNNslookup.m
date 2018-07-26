@@ -11,6 +11,7 @@
 #include <string.h>
 
 #import "QNNNslookup.h"
+#import "QNNQue.h"
 
 const int kQNNTypeA = 1;
 const int kQNNTypeCname = 5;
@@ -181,9 +182,9 @@ static int setup_dns_server(res_state res, const char *dns_server) {
                output:(id<QNNOutputDelegate>)output
              complete:(QNNNslookupCompleteHandler)complete {
     QNNNslookup *instance = [[QNNNslookup alloc] init:domain server:dnsServer output:output complete:complete];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+    [QNNQue async_run_serial:^(void) {
         [instance run];
-    });
+    }];
     return instance;
 }
 
@@ -192,3 +193,4 @@ static int setup_dns_server(res_state res, const char *dns_server) {
 }
 
 @end
+

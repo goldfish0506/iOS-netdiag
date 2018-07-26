@@ -40,7 +40,7 @@ const int kQNNInvalidPingResponse = -22001;
 
 - (NSString *)description {
     if (_code == 0 || _code == kQNNRequestStoped) {
-        return [NSString stringWithFormat:@"%d packets transmitted, %ld packets received, %f packet loss time %fms\n round-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms", (int)(_count + _loss), (long)_count, (double)_loss * 100 / (_count + _loss), _totalTime, _minRtt, _avgRtt, _maxRtt, _stddev];
+        return [NSString stringWithFormat:@"%d packets transmitted, %ld packets received, %f packet loss time %fms\nround-trip min/avg/max/stddev = %.3f/%.3f/%.3f/%.3f ms", (int)(_count + _loss), (long)_count, (double)_loss * 100 / (_count + _loss), _totalTime, _minRtt, _avgRtt, _maxRtt, _stddev];
     }
     return [NSString stringWithFormat:@"ping failed %ld", (long)_code];
 }
@@ -348,6 +348,7 @@ static BOOL isValidResponse(char *buffer, int len, int seq, int identifier) {
     int ttl = 0;
     int size = 0;
     int loss = 0;
+    [self.output write:[NSString stringWithFormat:@"\nstart ping %s ...\n", inet_ntoa(addr.sin_addr)]];
     do {
         NSDate *t1 = [NSDate date];
         int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_ICMP);
@@ -362,7 +363,7 @@ static BOOL isValidResponse(char *buffer, int len, int seq, int identifier) {
             [self.output write:[NSString stringWithFormat:@"%d bytes from %s: icmp_seq=%ld ttl=%d time=%f ms\n", size, inet_ntoa(addr.sin_addr), (long)index, ttl, duration * 1000]];
             durations[index - loss] = duration * 1000;
         } else {
-            [self.output write:[NSString stringWithFormat:@"Request timeout for icmp_seq %ld\n", (long)index]];
+            [self.output write:[NSString stringWithFormat:@"Request timeout for icmp_seq %ld\n\n", (long)index]];
             loss++;
         }
 
@@ -384,6 +385,7 @@ static BOOL isValidResponse(char *buffer, int len, int seq, int identifier) {
                                              loss:loss
                                         totalTime:[[NSDate date] timeIntervalSinceDate:begin] * 1000];
         [self.output write:result.description];
+        [self.output write:@"\n"];
         [QNNQue async_run_main:^(void) {
             _complete(result);
         }];
