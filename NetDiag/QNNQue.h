@@ -17,6 +17,8 @@
 
 + (void)async_run_main:(dispatch_block_t)block;
 
++ (void)cancelAllOperations;
+
 @end
 
 #endif /* QNNQue_h */

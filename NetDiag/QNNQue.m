@@ -14,7 +14,7 @@
 
 + (instancetype)sharedInstance;
 
-@property (nonatomic) dispatch_queue_t que;
+@property (nonatomic, strong) NSOperationQueue *queue;
 
 @end
 
@@ -22,29 +22,38 @@
 
 + (instancetype)sharedInstance {
     static QNNQue *sharedInstance = nil;
-
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
     });
-
+    
     return sharedInstance;
 }
 - (instancetype)init {
     if (self = [super init]) {
-        _que = dispatch_queue_create("qnn_que_serial", DISPATCH_QUEUE_SERIAL);
+        _queue = [[NSOperationQueue alloc] init];
+        _queue.maxConcurrentOperationCount = 1;
     }
     return self;
 }
 
 + (void)async_run_serial:(dispatch_block_t)block {
-    dispatch_async([QNNQue sharedInstance].que, ^{
+    [[QNNQue sharedInstance].queue addOperationWithBlock:^{
         block();
-    });
+    }];
 }
 
 + (void)async_run_main:(dispatch_block_t)block {
-    dispatch_async(dispatch_get_main_queue(), block);
+    [[QNNQue sharedInstance].queue addOperationWithBlock:^{
+        dispatch_async(dispatch_get_main_queue(), block);
+    }];
+    
+}
+
++ (void)cancelAllOperations
+{
+    [[QNNQue sharedInstance].queue cancelAllOperations];
 }
 
 @end
