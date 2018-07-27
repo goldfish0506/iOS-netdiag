@@ -136,11 +136,11 @@ static int setup_dns_server(res_state res, const char *dns_server) {
 
 - (void)run {
     if (_output != nil) {
-        [_output write:[NSString stringWithFormat:@"Query: %@", _domain]];
+        [_output write:[NSString stringWithFormat:@"Query: %@\n", _domain]];
         if (_dnsServer == nil) {
             [_output write:@"system dns server\n"];
         } else {
-            [_output write:[NSString stringWithFormat:@"server: %@", _dnsServer]];
+            [_output write:[NSString stringWithFormat:@"server: %@\n", _dnsServer]];
         }
     }
 
